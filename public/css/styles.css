@@ -1,20 +1,35 @@
 header {
-  min-height: 10vh;
-  padding-top: 3vh;
+  min-height: 48px;
+  padding-top: 20px;
+  margin-bottom: 1rem;
 }
 
+main > section {
+  min-height: calc(100vh - 96px - 2rem);
+}
 main {
-  min-height: 80vh;
+  margin-bottom: 1rem;
 }
-
 footer {
-  min-height: 10vh;
+  min-height: 48px;
+  margin-top: 1rem;
 }
 
 h3.title {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 #dashboard-options {
   margin-top: 5rem;
+}
+
+.tax-label {
+  color: #363636;
+  font-size: 1rem;
+  font-weight: 700;
+  padding-right: 5rem;
+}
+
+section.add-product {
+  margin-bottom: 2rem;
 }
