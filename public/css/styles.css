@@ -1,0 +1,16 @@
+header {
+  min-height: 10vh;
+  padding-top: 3vh;
+}
+
+main {
+  min-height: 80vh;
+}
+
+footer {
+  min-height: 10vh;
+}
+
+h3.title {
+  margin-top: 1rem;
+}
