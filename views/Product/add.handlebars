@@ -4,32 +4,45 @@
   </h3>
   <form class="box" action="/product/add" method="POST">
     <div class="field">
-      <label class="label" for="name">Product Name</label>
+      <label class="label" for="title">Product Title</label>
       <div class="control">
-        <input class="input" name="name" id="name" type="text" required placeholder="Product name">
+        <input class="input" name="title" id="title" type="text" required placeholder="Product title" value={{title}}>
       </div>
+      {{#if titleError }}
+      <span class="has-text-danger">{{ titleError }}</span>
+      {{/if}}
     </div>
 
     <div class="field">
       <label class="label" for="price">Product Price</label>
       <div class="control">
-        <input class="input" name="price" id="price" type="number" required placeholder="Product price">
+        <input class="input" name="price" id="price" type="number" required placeholder="Product price" value={{price}}>
       </div>
+      {{#if priceError }}
+      <span class="has-text-danger">{{ priceError }}</span>
+      {{/if}}
     </div>
 
     <div class="field">
       <label class="label" for="quantity">Quantity on Hand</label>
       <div class="control">
-        <input class="input" name="quantity" id="quantity" type="number" required placeholder="Quantity on hand">
+        <input class="input" name="quantity" id="quantity" type="number" required placeholder="Quantity on hand"
+          value={{quantity}}>
       </div>
+      {{#if quantityError }}
+      <span class="has-text-danger">{{ quantityError }}</span>
+      {{/if}}
     </div>
 
     <div class="field">
       <label class="label" for="description">Product Description</label>
       <div class="control">
         <textarea class="textarea" name="description" id="description" required
-          placeholder="Product description"></textarea>
+          placeholder="Product description">{{description}}</textarea>
       </div>
+      {{#if descriptionError }}
+      <span class="has-text-danger">{{ descriptionError }}</span>
+      {{/if}}
     </div>
 
     <div class="field">
@@ -44,6 +57,9 @@
           No
         </label>
       </div>
+      {{#if taxableError }}
+      <span class="has-text-danger">{{ taxableError }}</span>
+      {{/if}}
     </div>
 
     <div class="field">
