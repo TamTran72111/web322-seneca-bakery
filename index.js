@@ -2,6 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 const productRouter = require("./routes/Product");
 

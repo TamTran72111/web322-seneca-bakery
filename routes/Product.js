@@ -1,34 +1,8 @@
 const router = require("express").Router();
 const Product = require("../models/Product");
 
-router.get("/list", (req, res) => {
-  Product.find()
-    .then(products => {
-      res.render("Product/list", { products });
-    })
-    .catch(err => {
-      console.log(`Something went wrong:\n${err}`);
-      res.redirect("/product/dashboard");
-    });
-});
-
-router.get("/dashboard", (req, res) => {
-  res.render("Product/dashboard");
-});
-
-router.get("/add", (req, res) => {
-  res.render("Product/add");
-});
-
-router.post("/add", (req, res) => {
+const validateProductInfo = formData => {
   const errors = {};
-  const formData = {
-    title: req.body.title,
-    price: req.body.price,
-    quantity: req.body.quantity,
-    description: req.body.description,
-    taxable: req.body.taxable
-  };
 
   if (formData.title == "") {
     errors.titleError = "Title is required";
@@ -49,6 +23,38 @@ router.post("/add", (req, res) => {
   if (formData.taxable == "") {
     errors.taxableError = "Taxable is required";
   }
+
+  return errors;
+};
+
+router.get("/list", (req, res) => {
+  Product.find()
+    .then(products => {
+      res.render("Product/list", { products });
+    })
+    .catch(err => {
+      console.log(`Something went wrong:\n${err}`);
+      res.redirect("/product/dashboard");
+    });
+});
+
+router.get("/dashboard", (req, res) => {
+  res.render("Product/dashboard");
+});
+
+router.get("/add", (req, res) => {
+  res.render("Product/add");
+});
+
+router.post("/add", (req, res) => {
+  const formData = {
+    title: req.body.title,
+    price: req.body.price,
+    quantity: req.body.quantity,
+    description: req.body.description,
+    taxable: req.body.taxable
+  };
+  const errors = validateProductInfo(formData);
 
   if (Object.keys(errors).length > 0) {
     res.render("Product/add", { ...errors, ...formData });
@@ -84,6 +90,41 @@ router.get("/edit/:id", (req, res) => {
     .catch(err => {
       res.redirect("/product/dashboard");
     });
+});
+
+router.put("/edit/:id", (req, res) => {
+  const formData = {
+    title: req.body.title,
+    price: req.body.price,
+    quantity: req.body.quantity,
+    description: req.body.description,
+    taxable: req.body.taxable
+  };
+  const errors = validateProductInfo(formData);
+
+  if (Object.keys(errors).length > 0) {
+    res.render("Product/edit", { ...errors, ...formData });
+  } else {
+    formData.taxable = formData.taxable == "yes";
+    Product.findById(req.params.id)
+      .then(product => {
+        product.title = formData.title;
+        product.price = formData.price;
+        product.quantity = formData.quantity;
+        product.description = formData.description;
+        product.taxable = formData.taxable;
+        product
+          .save()
+          .then(() => res.redirect("/product/list"))
+          .catch(err => {
+            console.log(`Something went wrong:\n${err}`);
+            res.redirect("/product/dashboard");
+          });
+      })
+      .catch(err => {
+        res.redirect("/product/dashboard");
+      });
+  }
 });
 
 module.exports = router;
