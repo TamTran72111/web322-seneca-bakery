@@ -33,3 +33,8 @@ h3.title {
 section.add-product {
   margin-bottom: 2rem;
 }
+
+div.prod-list {
+  max-width: 600px;
+  margin: auto auto;
+}

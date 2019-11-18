@@ -1,3 +1,15 @@
-<section>
-
+<section class="container">
+  <h3 class="title is-3 has-text-centered">
+    Product Listing
+  </h3>
+  <div class="box has-text-centered prod-list">
+    {{#each products}}
+    <div class="columns">
+      <span class="column">{{this.title}}</span>
+      <span class="column"><a href="/product/edit/{{this._id}}">Edit</a></span>
+    </div>
+    {{else}}
+    No product in database
+    {{/each}}
+  </div>
 </section>

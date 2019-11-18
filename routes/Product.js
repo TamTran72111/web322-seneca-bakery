@@ -2,7 +2,14 @@ const router = require("express").Router();
 const Product = require("../models/Product");
 
 router.get("/list", (req, res) => {
-  res.render("Product/list");
+  Product.find()
+    .then(products => {
+      res.render("Product/list", { products });
+    })
+    .catch(err => {
+      console.log(`Something went wrong:\n${err}`);
+      res.redirect("/product/dashboard");
+    });
 });
 
 router.get("/dashboard", (req, res) => {
