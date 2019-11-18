@@ -78,4 +78,12 @@ router.post("/add", (req, res) => {
   }
 });
 
+router.get("/edit/:id", (req, res) => {
+  Product.findById(req.params.id)
+    .then(product => res.render("Product/edit", product))
+    .catch(err => {
+      res.redirect("/product/dashboard");
+    });
+});
+
 module.exports = router;
