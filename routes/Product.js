@@ -118,7 +118,16 @@ router.put("/edit/:id", (req, res) => {
           .then(() => res.redirect("/product/list"))
           .catch(err => {
             console.log(`Something went wrong:\n${err}`);
-            res.redirect("/product/dashboard");
+            if (err.code === 11000) {
+              console.log(product);
+              res.render("Product/edit", {
+                titleError: "Title is already used. It needs to be unique",
+                _id: product._id,
+                ...formData
+              });
+            } else {
+              res.redirect("/product/dashboard");
+            }
           });
       })
       .catch(err => {
